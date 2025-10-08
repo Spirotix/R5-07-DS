@@ -6,6 +6,7 @@ public class Q6
 		{
 			System.err.println("Usage: java Q4 [N]");
 			System.exit(1);
+			
 		}
 		int N = Integer.parseInt(args[0]);
 		for (int i = N; i >= 1; i--) 
