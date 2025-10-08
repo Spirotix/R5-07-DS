@@ -14,7 +14,7 @@ jobs:
 
     - name: Créer Q4_archive_java_JJ-MM-AAAA.txt
       run: |
-        DATE=$('%d-%m-%Y')
+        DATE=$(date + '%d-%m-%Y')
         echo "Nom : HAREL Théo" > Q4_archive_java_$DATE.txt
         echo "" >> Q4_archive_java_$DATE.txt
         cat Q4.java >> Q4_archive_java_$DATE.txt
