@@ -1,0 +1,29 @@
+name: Q3 - Archiver le code Java
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  archive-java:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Créer Q3_archive_java.txt
+      run: |
+        echo "Nom : HAREL Théo" > Q3_archive_java.txt
+        echo "" >> Q3_archive_java.txt
+        cat Q3.java >> Q3_archive_java.txt
+
+    - name: Config
+      run: |
+        git config --global user.name HarelTheo
+        git config --global user.email theo.harel@univ-lehavre.fr
+
+    - name: Commit et push
+      run: |
+        git add Q3_archive_java.txt
+        git commit -m "Q3: Archive du fichier Q3.java" || echo "Aucun changement"
+        git push
