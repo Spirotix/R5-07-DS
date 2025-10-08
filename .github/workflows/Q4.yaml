@@ -18,6 +18,7 @@ jobs:
         echo "Nom : HAREL Théo" > Q4_archive_java_$DATE.txt
         echo "" >> Q4_archive_java_$DATE.txt
         cat Q4.java >> Q4_archive_java_$DATE.txt
+        echo "DATE=$DATE" >> $GITHUB_ENV
 
     - name: Config
       run: |
@@ -26,6 +27,7 @@ jobs:
 
     - name: Commit et push
       run: |
-        git add Q4_archive_java_$DATE.txt
+        git add Q4_archive_java_${DATE}.txt
         git commit -m "Q4: Archive du fichier Q4.java" || echo "Aucun changement"
+        git pushit -m "Q4: Archive du fichier Q4.java" || echo "Aucun changement"
         git push
