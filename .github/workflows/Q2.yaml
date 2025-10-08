@@ -1,0 +1,34 @@
+name: Q2 - votre nom et prénom et la date et l’heure d’exécution du workflow et le contenu de TOTO.txt et la taille de TOTO.txt
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  archive-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Créer Q2_archive_TOTO.txt
+        run: |
+          echo "Nom : Théo HAREL" > Q2_archive_TOTO.txt
+          echo "Date et heure : $(date)" >> Q2_archive_TOTO.txt
+          echo "" >> Q2_archive_TOTO.txt
+          cat TOTO.txt >> Q2_archive_TOTO.txt
+          echo "" >> Q2_archive_TOTO.txt
+          echo "Taille (caractères et lignes) :" >> Q2_archive_TOTO.txt
+          wc TOTO.txt >> Q2_archive_TOTO.txt
+
+      - name: Config
+        run: |
+          git config --global user.name HarelTheo
+          git config --global user.email theo.harel@univ-lehavre.fr
+
+      - name: Commit et push
+        run: |
+          git add Q2_archive_TOTO.txt
+          git commit -m "Q2: Archive TOTO avec nom et date" || echo "Aucun changement"
+          git push
