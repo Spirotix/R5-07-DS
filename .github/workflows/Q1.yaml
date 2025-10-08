@@ -1,0 +1,27 @@
+name: Q1 - Copier README
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  copy-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      - name: Copier TOTO.txt vers Q1_archive_TOTO.txt
+        run: cp TOTO.txt Q1_archive_TOTO.txt
+
+      - name: Config
+        run: |
+          git config --global user.name HarelTheo
+          git config --global user.email theo.harel@univ-lehavre.fr
+
+      - name: Commit et push
+        run: |
+          git add Q1_archive_TOTO.txt
+          git commit -m "Q1: Copie du TOTO dans Q1_archive_TOTO.txt" || echo "Aucun changement"
+          git push
