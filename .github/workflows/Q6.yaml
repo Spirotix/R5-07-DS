@@ -23,10 +23,13 @@ jobs:
          echo "Taille (caractères et lignes) :" >> $ARCHIVE
          wc Q6.java >> $ARCHIVE
 
-         # Comparer avec l’archive précédente si elle existe
+         # S'assurer que l'archive précédente existe et n'est pas identique à la nouvelle
+
          PREV=$(ls -1t Q6_archive_*.txt 2>/dev/null | sed -n 2p || true)
          if [ -n "$PREV" ]; then
-           diff $PREV $ARCHIVE > Q6_différences.txt || true
+           if diff $PREV $ARCHIVE > Q6_différences.txt; then
+         echo "Aucune différence détectée." > Q6_différences.txt
+           fi
          else
            echo "Pas d'archive précédente" > Q6_différences.txt
          fi
