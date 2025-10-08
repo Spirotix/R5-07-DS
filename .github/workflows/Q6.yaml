@@ -1,0 +1,43 @@
+name: Q6 - Archiver Q6.java avec comparaison
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  archive-java:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Créer Q6_archive_java_JJ-MM-AAAA-HHMMSS.txt et Q6_différences.txt
+      run: |
+         DATE=$(date +'%d-%m-%Y-%H%M%S')
+         ARCHIVE="Q6_archive_${DATE}.txt"
+         echo "Nom : HAREL Théo" > $ARCHIVE
+         echo "" >> $ARCHIVE
+         cat Q6.java >> $ARCHIVE
+         echo "" >> $ARCHIVE
+         echo "Taille (caractères et lignes) :" >> $ARCHIVE
+         wc Q6.java >> $ARCHIVE
+
+         # Comparer avec l’archive précédente si elle existe
+         PREV=$(ls -1t Q6_archive_*.txt 2>/dev/null | sed -n 2p || true)
+         if [ -n "$PREV" ]; then
+           diff $PREV $ARCHIVE > Q6_différences.txt || true
+         else
+           echo "Pas d'archive précédente" > Q6_différences.txt
+         fi
+
+    - name: Config
+      run: |
+         git config --global user.name HarelTheo
+         git config --global user.email theo.harel@univ-lehavre.fr
+
+    - name: Commit et push
+      run: |
+         git add Q6_archive_*.txt Q6_différences.txt
+         git commit -m "Q6: Archive du fichier Q6.java" || echo "Aucun changement"
+         git push
