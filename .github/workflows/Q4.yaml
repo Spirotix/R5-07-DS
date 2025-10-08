@@ -1,0 +1,31 @@
+name: Q4 - Archiver le code Java + date dans le nom du fichier
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  archive-java:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Créer Q4_archive_java_JJ-MM-AAAA.txt
+      run: |
+        DATE=$('%d-%m-%Y')
+        echo "Nom : HAREL Théo" > Q4_archive_java_$DATE.txt
+        echo "" >> Q4_archive_java_$DATE.txt
+        cat Q4.java >> Q4_archive_java_$DATE.txt
+
+    - name: Config
+      run: |
+        git config --global user.name HarelTheo
+        git config --global user.email theo.harel@univ-lehavre.fr
+
+    - name: Commit et push
+      run: |
+        git add Q4_archive_java_$DATE.txt
+        git commit -m "Q4: Archive du fichier Q4.java" || echo "Aucun changement"
+        git push
