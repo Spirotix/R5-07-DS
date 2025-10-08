@@ -1,1 +1,6 @@
-Aucune différence détectée.
+10a11
+> 			
+25c26
+<  20  54 341 Q6.java
+---
+>  21  54 345 Q6.java
