@@ -1,0 +1,6 @@
+Nom : Théo HAREL
+Date et heure : Wed Oct  8 13:42:05 UTC 2025
+
+Ceci est le fichier TOTO.txt
+Taille (caractères et lignes) :
+ 0  5 28 TOTO.txt
